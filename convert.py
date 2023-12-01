@@ -79,6 +79,12 @@ def merge_overlapping(gd_list):
     return gd_list
     
 def convert_to_docbin(gd_list, nlp):
+    """
+    Because spaCy's docbin format requires Doc objects, and those require entities as span objects 
+    (which are a spaCy output), some preprocessing and sanitisation is necessary as problems can 
+    arise in mismatches between span objects and the originally assigned entities in the json 
+    format.
+    """
     
     def align_tokens(gd):
         text = gd["text_raw"]
