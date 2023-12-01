@@ -7,6 +7,10 @@ import spacy
 from spacy.tokens import Span, DocBin
 
 
+PATH_INPUT_JSON = "/veld/input/data.json"
+PATH_OUTPUT_DOCBIN_FOLDER = "/veld/output/a"
+
+
 def parse_env_vars():
     print(f"####################### reading args")
     parser = argparse.ArgumentParser()
@@ -22,7 +26,7 @@ def parse_env_vars():
     
 def read_gold_data(perc_train, perc_dev, perc_eval, seed):
     random.seed(seed)
-    with open("/veld/input/data.json", "r") as f:
+    with open(PATH_INPUT_JSON, "r") as f:
         gd_list = json.load(f)
     random.shuffle(gd_list)
     len_total = len(gd_list)
@@ -172,7 +176,7 @@ def main():
         print(f"####################### converting {gd_name} data")
         gd_list = merge_overlapping(gd_list)
         docbin = convert_to_docbin(gd_list, nlp)
-        docbin.to_disk(f"/veld/output/a/{gd_name}.spacy")
+        docbin.to_disk(f"{PATH_OUTPUT_DOCBIN_FOLDER}/{gd_name}.spacy")
     
 
 if __name__ == "__main__":
