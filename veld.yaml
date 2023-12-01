@@ -9,38 +9,38 @@ x-veld:
         - "NLP"
         - "Machine learning"
     input:
-      a:
+      -
         type: "file"
         format: "json"
         content: "Named entity recognition gold data"
         path: /veld/input/data.json
-      b:
+      -
         type: "environment variable"
         name: "train" 
         optional: true
         default: 80
-      c:
+      -
         type: "environment variable"
         name: "dev" 
         optional: true
         default: 10
-      d:
+      -
         type: "environment variable"
         name: "eval" 
         optional: true
         default: 10
-      e:
+      -
         type: "environment variable"
         name: "seed" 
         optional: true
         default: 42
     output:
-      a:
+      -
         type: "folder"
         format: "spaCy DocBin"
         content: "Named entity recognition gold data"
         path: /veld/output/a/
-      b:
+      -
         type: "file"
         format: "txt"
         content: "log"
