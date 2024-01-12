@@ -48,6 +48,11 @@ def read_gold_data(perc_train, perc_dev, perc_eval, seed):
 
 
 def merge_overlapping(gd_list):
+    """
+    If there are two overlapping entities (=the end of a preceding entity lying after the beginning
+    of a succeeding entity), then merge them into one entity. Should the entity types conflict, take
+    the preceding
+    """
     print("####################### merging overlapping entities")
     for gd in gd_list:
         ent_list = gd["entities"]
@@ -91,6 +96,7 @@ def convert_to_docbin(gd_list, nlp):
     """
     
     def align_tokens(gd):
+        # TODO: comment
         text = gd["text_raw"]
         doc = nlp(text)
         span_list = []
@@ -105,6 +111,7 @@ def convert_to_docbin(gd_list, nlp):
                 else:
                     token_id_end = token.i
                     break
+            # TODO: check if BILOU scheme can be integrated here, or maybe it's not necessary?
             span = Span(doc, token_id_start, token_id_end, ent[2])
             if span.text != text[ent[0]:ent[1]]:
                 print(
@@ -116,6 +123,7 @@ def convert_to_docbin(gd_list, nlp):
         return doc, span_list
     
     def clean_span_list(span_list, gd):
+        # TODO: comment
         text = gd["text_raw"]
         ent_list = gd["entities"]
         text_sub_list = [text[e[0]:e[1]] for e in ent_list]
